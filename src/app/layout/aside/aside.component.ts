@@ -46,8 +46,8 @@ changeDate(ev:Date): void {
    this.tourService.initChangeTourDate(ev);
 }
 
-clearDate(ev:Date): void {
-  console.log('date', ev)
-  // this.tourService.clearTourDate(ev);
+clearDate(ev:Event): void {
+console.log('date', ev)
+  this.tourService.clearDateTour();
 }
 }

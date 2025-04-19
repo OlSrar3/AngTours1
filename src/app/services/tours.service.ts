@@ -2,24 +2,28 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, delay, forkJoin, map, Observable, of, Subject, switchMap, tap } from 'rxjs';
 import { API } from '../shared/api';
-import { Coords, ICountriesResponseItem, ITour, ITourComponent } from '../models/tour';
+import { Coords, ICountriesResponseItem, ITour, ITourComponent, ITourTypes } from '../models/tour';
 import { isDate } from 'date-fns';
 import { MapService } from './map.service';
 import { LoaderService } from './loader.service';
+import { IBuyer, IPostorder } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToursService {
 
-  private tourTypeSubject = new Subject<any>();
+  private tourTypeSubject = new Subject<ITourTypes>();
   readonly tourType$ = this.tourTypeSubject.asObservable();
 
   private tourDateSubject = new Subject<Date>();
   readonly tourDate$ = this.tourDateSubject.asObservable();
 
-  private tourAllSubject = new Subject<any>();
+  private tourAllSubject = new Subject<ITour>();
   readonly tourTour$ = this.tourAllSubject.asObservable();
+
+  private clearSubject = new Subject<void>();
+  readonly clearTour$ = this.clearSubject.asObservable();
   
   constructor(private http:HttpClient, private mapService:MapService, private loaderService: LoaderService) { }
 
@@ -100,7 +104,7 @@ searchTours(tours:ITour[], value: string): ITour[] {
   }
 }
 
-initChangeTourType(val:any): void {
+initChangeTourType(val:ITourTypes): void {
   this.tourTypeSubject.next(val);
 }
 
@@ -108,9 +112,13 @@ initChangeTourDate(val:Date): void{
   this.tourDateSubject.next(val);
 }
 
-/*clearTourDate(val:Date): void{
-  this.tourDateSubject.clear(val);
-}*/
+clearDateTour() {
+ 
+  this.tourDateSubject.next(null);
+  this.clearSubject.next();
+}
+
+
 
 getCountryByCode(code: string): Observable<any> {
   
@@ -149,5 +157,8 @@ switchMap((countrieData) => {
 )
 }
 
-}
+postOrder(orderBody: any): Observable<any> {
+  return this.http.post(API.order, orderBody, {responseType: 'text'});
 
+}
+}

@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DatePicker, DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-order',
@@ -26,6 +27,7 @@ export class OrderComponent implements OnInit{
   userForm: FormGroup;
 
   constructor(private tourService:ToursService,
+    private userService:UserService,
     private route: ActivatedRoute
   ) {}
 
@@ -46,4 +48,15 @@ export class OrderComponent implements OnInit{
     
     })
   }
+ /* initOrder():void {
+    const userLogin = this.userService.getUser().login;
+    const personalDate = this.userForm.getRawValue();
+    const postObj = {
+     userLogin,
+    tourId:this.tourId,
+    personalDate: [personalDate]
+    }
+    this.tourService.postOrder(postObj).subscribe();
+
+  }*/
  }

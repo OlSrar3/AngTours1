@@ -16,9 +16,8 @@ selector='.tour-item'
 [initFirst]="true"
 (onEnter)="selectActive($event)"
 class="tours-list flex flex-wrap justify-content-around align-items-stretch">
-    @for (item of tours | search : searchInput.value : 'name'; track item.id) {
+@for (item of tours | search : searchInput.value : 'name'; track item.id) {
     <div (click)="goToTour(item)" class="m-2 col-3 tour-item align-self-stretch">
-
 <p-card
 header="{{item.name}}"
 subheader="{{item.price}}"
@@ -29,14 +28,14 @@ styleClass="tour-p-card"
     </ng-template>
    <p>{{item.description}}</p>
 
-    
-
 
 <p (click)="getCountryDetail($event, item.country?.iso_code2)"> 
     Страна: {{item.country?.name_ru}} 
 <img [src]="item.country?.flag_url"/>
 </p>
-</p-card> 
+</p-card></div>
+}
+<!--
 <div class="basket my-2 ml-2">
     @if(!item.inBasket) {
         <i (click)="setItemToBasket($event, item)" class="pi pi-cart-plus" style="color: green"></i>
@@ -44,9 +43,9 @@ styleClass="tour-p-card"
     else {
         <i (click)="removeItemFromBasket($event.item)" class="pi pi-cart-minus" style="color: red"></i>
     }
+
 </div>
-</div>
-    }
+-->
  @empty {
         <div class="no-data">Нет данных</div>
 }
@@ -59,7 +58,7 @@ styleClass="tour-p-card"
 
     @if (showModal) {
         <app-map [location] = "location"/>
-    }
+}
 
     <ng-template #footer>
         <p-button label="Закрыть" [text]="true" severity="secondary" (click)="showModal = false" />

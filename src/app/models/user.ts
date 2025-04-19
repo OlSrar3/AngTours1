@@ -9,3 +9,20 @@ export interface IUser {
  }
 
  export const UserStorageKey = 'current_user';
+
+ export interface IBuyer {
+    firstName: string,
+      lastName: string,
+      cardNumber: number,
+      birthDate: Date,
+      age: number,
+      citizenship: string,
+    
+ }
+ export interface IPostorder {
+   userLogin: string,
+   tourId: string,
+   personalData: number,
+
+   
+}

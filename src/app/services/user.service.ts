@@ -23,9 +23,9 @@ private currentUser: IUser | null = null;
  getUser(): IUser {
     const userFromStorage = sessionStorage.getItem(UserStorageKey);
 
-  /* if (!this.currentUser) {
+  /*if (!this.currentUser) {
     this.userFromStorage()
-    }*/
+    */
     return this.currentUser || JSON.parse(userFromStorage)
   }
 
@@ -33,10 +33,11 @@ private currentUser: IUser | null = null;
     this.currentUser=user;
     sessionStorage.setItem(UserStorageKey, JSON.stringify({login: user.login}));    
   }
-}
-/*userFromStorage(): void {
+
+userFromStorage(): void {
   const userStorage = sessionStorage.getItem('currentUser');
   if (userStorage) {
   this.currentUser = JSON.parse(userStorage);
     } 
-  }*/
+  }
+}

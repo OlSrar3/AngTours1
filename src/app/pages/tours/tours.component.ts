@@ -11,7 +11,7 @@ import { SearchPipe } from '../../shared/pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
 import { HighlightActiveDirective } from '../../shared/directives/highlight-active.directive';
 import { isValid } from 'date-fns';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { find, map, Subject, Subscription, switchAll, switchMap, takeUntil } from 'rxjs';
 import { DialogModule } from 'primeng/dialog';
 import { Location } from '@angular/common';
 import { MapComponent } from '../../shared/components/map/map.component';
@@ -21,18 +21,17 @@ import { BasketService } from '../../services/basket.service';
 @Component({
   selector: 'app-tours',
   imports: [
-    CardModule, 
-    InputGroupModule, 
-    InputGroupAddonModule, 
-    ButtonModule, 
-    InputTextModule, 
-    SearchPipe, 
+    CardModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    ButtonModule,
+    InputTextModule,
+    SearchPipe,
     FormsModule,
     HighlightActiveDirective,
     DialogModule,
-
-  
-  ],
+    MapComponent
+],
   templateUrl: './tours.component.html',
   styleUrl: './tours.component.scss'
 })
@@ -78,7 +77,7 @@ location: ILocation = null;
         
       });
     //this.typeTourFilter = tour;
-    this.initTourFilterLogic();
+    //this.initTourFilterLogic();
 
   
     
@@ -87,9 +86,9 @@ location: ILocation = null;
   this.toursService.tourDate$.pipe(
     takeUntil(this.destroyer)
   ).subscribe((date) => {
- //   this.dateTourFilter = date;
+
       console.log('****date', date);
-   this.initTourFilterLogic();
+   //this.initTourFilterLogic();
 
       this.tours = this.toursStore.filter((tour)=>{
 
@@ -106,6 +105,20 @@ location: ILocation = null;
       });
     })
   
+    this.toursService.clearTour$.subscribe((date)=> {
+    // Если даты нет, все туры
+   if (!Date) {
+      return this.toursService.clearDateTour();
+    } else {
+
+    return this.toursService.initChangeTourDate(null);
+    }
+  }
+);
+  
+  
+
+
   console.log('ActivatedRoute', this.route)
     this.toursService.getTours().subscribe((data) => {
       if (Array.isArray(data)) {
@@ -157,7 +170,7 @@ ngOnDestroy(): void {
     });
 
   }
-  initTourFilterLogic(): void {
+ /* initTourFilterLogic(): void {
 
     if (this.typeTourFilter) {
       switch (this.typeTourFilter.key) {
@@ -173,7 +186,7 @@ ngOnDestroy(): void {
       break;
         }
       }
-    }
+    }*/
 
     /*removeTour (ev:Event, tour :ITour): void {
       ev.stopPropagation();

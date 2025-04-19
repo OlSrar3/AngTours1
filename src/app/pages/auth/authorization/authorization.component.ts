@@ -20,17 +20,20 @@ constructor(private userService:UserService,
   private messageService: MessageService,
   private router:Router
 ){}
+
 ngOnInit(): void {}
 
+
 ngOnDestroy(): void {}
+
 
 onAuth(): void {
   const user: IUser = {
 login: this.login,
 password: this.password,
-  };
+  }
   this.userService.authUser(user).subscribe(
-    ()=>{
+     ()=>{
       this.userService.setUser(user);
       this.router.navigate(['tours']);
     },

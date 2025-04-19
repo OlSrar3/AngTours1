@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+.tours-list {
+  & .tour-item {
+position: relative;
+&.active {
+border: 1px solid red;
+}
+& .basket{
+  cursor:pointer;
+}
+  }
+}

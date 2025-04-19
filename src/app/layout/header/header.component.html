@@ -1,0 +1,43 @@
+<div class="layout-header">
+    <div class="layout-header__menu">
+        <p-menubar [model]="menuItems"/>
+    </div>
+    <div class="layout-header__right-block">
+    
+        <div class="user-info"></div>
+        <div class="basket mr-4">
+            <p-overlaybadge badgeSize="small" 
+            [value]="(basketStore$ | async).length" 
+            severity="danger" >
+            
+            <div class="basket-icon-wrap">
+            <i class="pi-cart-arrow-down"></i>
+        </div>
+        </p-overlaybadge>
+        </div>
+        
+    
+        <div class="logout">
+        
+    <p-button 
+    [icon]='logoutIcon'
+    label="getLogin()" 
+    pTooltip="Logout"
+    (mouseenter)="hoverLogoutBtn(true)"
+    (mouseleave)="hoverLogoutBtn(false)"
+    (onClick)="logOut()"
+    severity="secondary">
+    </p-button> 
+        </div>
+    
+        <div class="date">
+            <div>
+                {{dateTime| date:'HH:mm:ss'}}
+            </div>
+            <div class="p-0 m-0">
+                {{dateTime| date:'EEEE'}}
+            </div>
+        </div>
+    
+    </div>
+    </div>

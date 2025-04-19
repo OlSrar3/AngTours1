@@ -1,4 +1,4 @@
-import { config } from "rxjs";
+
 import { environment } from "../../../environments/environment.development";
 
 const serverIp = environment.apiUrl;
@@ -10,7 +10,8 @@ export const API = {
     tour: `${serverIp}/tour`,
     config:`/config/config.json`,
     nearestTours:`${serverIp}/nearestTours`,
-    countries:`${serverIp}/countries`,
-    countryByCode: 'https://restcountries.com/v3.1/alpha',
-    getWhether:"https://api.open-meteo.com/v1/forecast"
+   countries:`${serverIp}/countries`,
+   countryByCode: 'https://restcountries.com/v3.1/alpha',
+   getWhether:"https://api.open-meteo.com/v1/forecast",
+   order: `${serverIp}/order`,
 }

@@ -13,7 +13,7 @@ import { MessageService } from 'primeng/api';
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss'
 })
-export class RegistrationComponent implements OnInit{
+export class RegistrationComponent implements OnInit {
 login: string = null;
 password: string;
 repeatPassword: string;
@@ -23,7 +23,7 @@ isRemember: boolean;
 labelText = "Сохранить пользователя в хранилище";
 
 constructor(private userService:UserService,
-  private messageService: MessageService){}
+  private messageService: MessageService) {}
 
 ngOnInit(): void {
 

@@ -10,6 +10,7 @@ export interface ITour {
     date: Date;
     country?: ICountriesResponseItem;
     code?:string;
+    inBasket?:boolean;
   
  }
 

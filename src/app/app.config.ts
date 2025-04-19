@@ -4,13 +4,15 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { config } from 'rxjs';
-//import { ConfigService } from './services/config.service';
+import { ConfigService } from './services/config.service';
+import { MessageService } from 'primeng/api';
+import { errorInterceptor } from './shared/components/interceptors/error.interceptor';
 
-/*function initializeApp(config: ConfigService) {
+function initializeApp(config: ConfigService) {
   return config.loadObservable();
-}*/
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,7 +29,8 @@ export const appConfig: ApplicationConfig = {
           dayNamesMin: ['ПН', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
         }
     }),
-    provideHttpClient(),
-   // provideAppInitializer(()=>initializeApp(inject(ConfigService)))
+    provideHttpClient(withInterceptors([errorInterceptor])),
+    provideAppInitializer(()=>initializeApp(inject(ConfigService))),
+    MessageService
       ]
 };

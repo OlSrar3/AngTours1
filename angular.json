@@ -5,11 +5,26 @@
   "projects": {
     "AngTours": {
       "projectType": "application",
+      "i18n": {
+        "sourceLocale": "ru"
+      },
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
           "skipTests": true
-        }
+      },
+       "@schematics/angular:guard": {
+          "skipTests": true
+      },
+      "@schematics/angular:pipe": {
+        "skipTests": true
+    },
+    "@schematics/angular:service": {
+      "skipTests": true
+  },
+    "@schematics/angular:interceptor": {
+      "skipTests": true
+  }
       },
       "root": "",
       "sourceRoot": "src",
@@ -34,9 +49,15 @@
             ],
             "styles": [
               "src/styles.scss",
-              "./node_modules/primeflex/primeflex.css"
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/ol/ol.css"
+              
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/app/styles"]
+            }
           },
           "configurations": {
             "production": {

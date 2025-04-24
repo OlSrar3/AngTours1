@@ -6,6 +6,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
 import { ToursService } from '../../services/tours.service';
+import { ISelectedType, ITourTypes } from '../../models/tours';
 
 @Component({
   selector: 'app-aside',
@@ -26,9 +27,9 @@ export class AsideComponent implements OnInit {
 
   date: Date = null;
 
-  selectedType: any = null;
+  selectedType: ISelectedType = null;
 
-  tourTypes = 
+  tourTypes:  Array<ITourTypes> =
   [
    { key: 'single' , label:'Одиночный'},
    { key: 'group' , label:'Групповой'},
@@ -48,6 +49,6 @@ changeDate(ev:Date): void {
 
 clearDate(ev:Event): void {
 console.log('date', ev)
-  this.tourService.clearDateTour();
+  this.tourService.initChangeTourDate(null);
 }
 }

@@ -26,6 +26,8 @@ styleClass="tour-p-card"
     <ng-template #header>
         <img alt="Card" class="w-full" src="/img/{{item.img}}"/>
     </ng-template>
+
+    <p>{{item.type}}</p>
    <p>{{item.description}}</p>
 
 
@@ -33,7 +35,9 @@ styleClass="tour-p-card"
     Страна: {{item.country?.name_ru}} 
 <img [src]="item.country?.flag_url"/>
 </p>
-</p-card></div>
+
+</p-card>
+</div>
 }
 <!--
 <div class="basket my-2 ml-2">
@@ -52,13 +56,14 @@ styleClass="tour-p-card"
 </div>
 
 <p-dialog [(visible)]="showModal" [modal]="true" [style]="{ width: '50rem' }">
-    <ng-template #header>
-        <p>Погода</p>
-    </ng-template>
+   <!-- <ng-template #header>
+        <p>Погода: {{weatherData}}</p>
+    </ng-template>-->
 
     @if (showModal) {
-        <app-map [location] = "location"/>
-}
+        <map [location]="location"></map>
+       
+    }
 
     <ng-template #footer>
         <p-button label="Закрыть" [text]="true" severity="secondary" (click)="showModal = false" />

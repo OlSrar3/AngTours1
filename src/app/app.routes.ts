@@ -26,12 +26,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
     component: SettingsComponent,
     children:[
-     
+      { path: '',   redirectTo: 'change-password', pathMatch: 'full'},
       {path: 'change-password', component: ChangepasswordComponent},
       {path: 'statistic', component: StatisticComponent, data:{showAside: true}},
     ]
   },
-  {path: 'order/:id',
+  {path: '/orders',
     canActivate: [authGuard],
     component: OrderComponent,
       },
@@ -40,3 +40,5 @@ export const routes: Routes = [
   ,
   { path: '**', redirectTo: '/auth', pathMatch: 'full' },
 ];
+
+/**/

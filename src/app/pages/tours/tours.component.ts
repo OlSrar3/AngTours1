@@ -6,16 +6,18 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { IFilterTypeLogic, ILocation, ITour } from '../../models/tour';
+import { IFilterTypeLogic, ILocation, ITour } from '../../models/tours';
 import { SearchPipe } from '../../shared/pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
 import { HighlightActiveDirective } from '../../shared/directives/highlight-active.directive';
 import { isValid } from 'date-fns';
 import { find, map, Subject, Subscription, switchAll, switchMap, takeUntil } from 'rxjs';
 import { DialogModule } from 'primeng/dialog';
+
 import { Location } from '@angular/common';
 import { MapComponent } from '../../shared/components/map/map.component';
 import { BasketService } from '../../services/basket.service';
+import { IWeatherCurrent, IWeatherResponce } from '../../models/map';
 
 
 @Component({
@@ -29,8 +31,9 @@ import { BasketService } from '../../services/basket.service';
     SearchPipe,
     FormsModule,
     HighlightActiveDirective,
+    MapComponent,
     DialogModule,
-    MapComponent
+
 ],
   templateUrl: './tours.component.html',
   styleUrl: './tours.component.scss'
@@ -46,6 +49,8 @@ export class ToursComponent implements OnInit, OnDestroy {
 destroyer = new Subject<boolean>()
 showModal = false;
 location: ILocation = null;
+//selectedTour: ITour = null;
+//weatherData: IWeatherResponce=null;
 
 
   constructor(
@@ -105,7 +110,7 @@ location: ILocation = null;
       });
     })
   
-    this.toursService.clearTour$.subscribe((date)=> {
+    /*this.toursService.clearTour$.subscribe((date)=> {
     // Если даты нет, все туры
    if (!Date) {
       return this.toursService.clearDateTour();
@@ -113,8 +118,7 @@ location: ILocation = null;
 
     return this.toursService.initChangeTourDate(null);
     }
-  }
-);
+  };*/
   
   
 
@@ -160,9 +164,9 @@ ngOnDestroy(): void {
   getCountryDetail(ev: Event, code:string): void {
     ev.stopPropagation();
     this.toursService.getCountryByCode(code).subscribe((data) => {
-      console.log('****new data', data)
-        if (data) {
-        const countryInfo = data.countrieData;
+      
+        if (Array.isArray(data)) {
+        const countryInfo = data[0];
         console.log('countryInfo', countryInfo);
         this.location = {lat: countryInfo.latlng[0], lng: countryInfo.latlng[1]};
         this.showModal = true;
@@ -170,6 +174,8 @@ ngOnDestroy(): void {
     });
 
   }
+         // this.selectedTour = tour;
+       // this.weatherData = data[0];
  /* initTourFilterLogic(): void {
 
     if (this.typeTourFilter) {

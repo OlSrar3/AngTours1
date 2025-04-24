@@ -23,8 +23,10 @@ export class ConfigService {
       const jsonFile = `${API.config}`;
 
       const configPromise = new Promise<any>((resolve, reject)=>{
+
         this.http.get(jsonFile).toPromise().then((response:any)=>{
           if (response && typeof (response) === 'object') {
+            
             if (Array.isArray(response?.rules)) {
               ConfigService.config = response;
               resolve(response);

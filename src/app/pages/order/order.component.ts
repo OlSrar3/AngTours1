@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToursService } from '../../services/tours.service';
-import { ITour } from '../../models/tour';
+import { ITour } from '../../models/tours';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePicker, DatePickerModule } from 'primeng/datepicker';
@@ -48,7 +48,7 @@ export class OrderComponent implements OnInit{
     
     })
   }
- /* initOrder():void {
+ initOrder():void {
     const userLogin = this.userService.getUser().login;
     const personalDate = this.userForm.getRawValue();
     const postObj = {
@@ -58,5 +58,5 @@ export class OrderComponent implements OnInit{
     }
     this.tourService.postOrder(postObj).subscribe();
 
-  }*/
+  }
  }

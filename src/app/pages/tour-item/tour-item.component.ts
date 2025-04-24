@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToursService } from '../../services/tours.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ITour } from '../../models/tour';
+import { ITour } from '../../models/tours';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule, Location } from '@angular/common';

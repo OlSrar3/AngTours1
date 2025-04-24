@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { Observable } from 'rxjs';
-import { ITour } from '../../models/tour';
+import { ITour } from '../../models/tours';
 import { BasketService } from '../../services/basket.service';
 @Component({
   selector: 'app-header',

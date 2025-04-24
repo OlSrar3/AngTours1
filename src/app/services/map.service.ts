@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ILocation } from '../models/tour';
+import { ILocation } from '../models/tours';
 import { Observable } from 'rxjs';
 import { IWeatherResponce } from '../models/map';
 import { API } from '../shared/api';

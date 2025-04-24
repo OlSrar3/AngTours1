@@ -15,8 +15,13 @@
     [(ngModel)]="date" 
     (onSelect)="changeDate($event)"
     [showButtonBar]="true"
-    dateFormat="dd-mm-yy"
-    (onClear)="clearDate($event)" />
+    dateFormat="dd-mm-yy">
+  </p-datepicker>  <!--(onClear)="clearDate($event)" />-->
   </div>
+<button (click)="clearDate($event)">Clear</button>
 
+<div *ngFor="let tour of tours$ | async">
+  {{ tour.name }}
 </div>
+</div>
+

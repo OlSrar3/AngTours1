@@ -13,5 +13,5 @@ export interface IWeatherCurrent {
 }
 
 export interface IWeatherHourly {
-tempreture_2m: number[],
+    temperature_2m: number[],
 }

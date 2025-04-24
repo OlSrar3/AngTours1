@@ -7,7 +7,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { fromEvent, Subscription } from 'rxjs';
-import { ITour } from '../../../models/tour';
+import { ITour } from '../../../models/tours';
 import { ToursService } from '../../../services/tours.service';
 
 @Component({

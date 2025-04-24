@@ -31,10 +31,13 @@ export interface ITourTypes {
 
 
 }
- export interface IselectedType {
-    
 
- }
+export interface  ISelectedType {
+    key: string;
+    label: string;
+
+
+}
 
  export interface IFilterTypeLogic {
     key: 'all' | 'single' | 'group';

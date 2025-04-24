@@ -26,8 +26,10 @@ export const appConfig: ApplicationConfig = {
         translation: {
           dayNames: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
           monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-          dayNamesMin: ['ПН', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
-        }
+          dayNamesMin: ['ПН', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+          clear:'Очистить',
+          today: 'Текущая дата'
+                }
     }),
     provideHttpClient(withInterceptors([errorInterceptor])),
     provideAppInitializer(()=>initializeApp(inject(ConfigService))),

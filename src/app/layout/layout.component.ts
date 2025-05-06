@@ -42,9 +42,7 @@ ngOnInit(): void {
    this.showAside = this.recursFindChildData(data, 'showAside');
   });
 }
-ngOnDestroy(): void {
-  this.subscription.unsubscribe();
-}
+
 recursFindChildData(children:ActivatedRouteSnapshot, prop: string): boolean {
   console.log('children', children)
   if (!children.data[prop] && children.firstChild) {
@@ -53,5 +51,7 @@ recursFindChildData(children:ActivatedRouteSnapshot, prop: string): boolean {
     return !!children.data[prop];
   }
 }
-
+ngOnDestroy(): void {
+  this.subscription.unsubscribe();
+}
 }

@@ -26,7 +26,7 @@ export class ConfigService {
 
         this.http.get(jsonFile).toPromise().then((response:any)=>{
           if (response && typeof (response) === 'object') {
-            
+
             if (Array.isArray(response?.rules)) {
               ConfigService.config = response;
               resolve(response);

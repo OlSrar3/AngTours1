@@ -10,7 +10,13 @@
     <h2>Информация о покупателе</h2>
     <form>
         <div class="mt-3 user-info" [formGroup]="userForm">
-            <div class="form-group mt-3">
+            @for (fieldObj of userFormFiledsArr; track fieldObj.control) {
+                <ng-container
+                    [ngTemplateOutlet] = 'FormFiled'
+                    [ngTemplateOutletContext] = 'fieldObj'
+                  />
+            }
+         <!--   <div class="form-group mt-3">
                 <label for="name" class="mx-3">Имя</label>
                 <input type="text" 
                 class="form-control mt-3"
@@ -36,7 +42,7 @@
                 pInputText
                 formControlName="cardNumber"
                 placeholder="Введите номер карты">
-            </div>
+            </div>-->
             <div class="form-group mt-3">
                 <label class="mx-3">Возраст</label>
                 <p-input-number  
@@ -55,7 +61,7 @@
                 class="form-control mt-3">
                 </p-datepicker>
             </div>
-            <div class="form-group mt-3">
+        <!--    <div class="form-group mt-3">
                 <label for="citizenship" class="mx-3">Гражданство</label>
                 <input type="text" 
                 class="form-control mt-3"
@@ -63,13 +69,13 @@
                 pInputText
                 formControlName="citizenship"
                 placeholder="Введите гражданство">
-            </div>
+            </div>-->
             <div class="form-group mt-3">
                 <p-button 
              
                 class="btn btn-primary"
                 [disabled]="!userForm.valid"
-                                         
+                (click)="initOrder()"          
                 >Сформировать заказ</p-button>
            
            
@@ -81,6 +87,32 @@
 </div>
 </div>
 
+<ng-template #FormFiled let-control="control" let-placeHolder = 'placeHolder' let-label = 'label'>
+    <div [formGroup] = 'userForm' class="form-group mt-3"> 
+        <label [attr.for]="control" class = 'mx-3'>{{label}}</label>
+        <input type="text" 
+        class="form-control mt-3"
+        [id]="control"
+        pInputText
+        [formControlName]="control"
+        [placeholder]="placeHolder"
+      >
+   <!--    <p-input-number  
+              
+                [formControlName]="control"
+                [placeholder]="placeHolder"
+                [showButtons]="true"
+                [min]="0"
+                class="form-control mt-3">
+        </p-input-number>
+           
+           [id]="control"
+            [formControlName]="control"
+            [placeholder]="placeHolder"
+             class="form-control mt-3">
+         -->
+    </div>
+</ng-template>
 <!--<p-button
 class="btn btn-primary"
 [disabled]="!userForm.valid">

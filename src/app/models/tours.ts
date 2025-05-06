@@ -4,10 +4,10 @@ export interface ITour {
     description: string,
     tourOperator: string,
     price: string,
-    img: any,
-    type: string,
+    img: string,
+    type?: string,
     locationId: string;
-    date: Date;
+    date?: string;
     country?: ICountriesResponseItem;
     code?:string;
     inBasket?:boolean;
@@ -21,8 +21,8 @@ name_ru: string;
 flag_url: string;
  }
 
-export interface ITourComponent {
-    tours: ITour 
+export interface ITourServerResponse {
+    tours: ITour[];
 }
 
 export interface ITourTypes {

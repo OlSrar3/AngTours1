@@ -31,7 +31,7 @@ export const routes: Routes = [
       {path: 'statistic', component: StatisticComponent, data:{showAside: true}},
     ]
   },
-  {path: '/orders',
+  {path: 'order/:id',
     canActivate: [authGuard],
     component: OrderComponent,
       },

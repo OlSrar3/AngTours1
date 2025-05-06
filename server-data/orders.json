@@ -1,5 +1,1 @@
-{
-    "orders": [
- 
-    ]
-}
+{"orders":[{"userLogin":"123","tourId":"1-1","personalDate":[{"firstName":"Ольга","lastName":"mvbnm","cardNumber":"","birthDate":"2024-07-02T21:00:00.000Z","age":1,"citizenship":""}]},{"userLogin":"123","tourId":"1-1","personalDate":[{"firstName":"Ольга","lastName":"mvbnm","cardNumber":"","birthDate":"2024-07-02T21:00:00.000Z","age":1,"citizenship":""}]}]}

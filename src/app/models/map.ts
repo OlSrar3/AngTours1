@@ -3,13 +3,13 @@ export interface IWeatherResponce {
     hourly: IWeatherHourly
 }
 
-export type IWeatherValue = 0|1;
+export type IWeatherCurrentValue = 0 | 1 ;
 
 export interface IWeatherCurrent {
 
-    is_day: IWeatherValue;
-    rain: IWeatherValue;
-    snowfall: IWeatherValue;
+    is_day: IWeatherCurrentValue;
+    rain: IWeatherCurrentValue;
+    snowfall: IWeatherCurrentValue;
 }
 
 export interface IWeatherHourly {

@@ -6,7 +6,7 @@
     
         <div class="user-info"></div>
         <div class="basket mr-4">
-            <p-overlaybadge badgeSize="small" 
+            <p-overlaybadge badgeSize="large" 
             [value]="(basketStore$ | async).length" 
             severity="danger" >
             
@@ -21,7 +21,7 @@
         
     <p-button 
     [icon]='logoutIcon'
-    label="Logout()" 
+    [label]="getLogin()" 
     pTooltip="Logout"
     (mouseenter)="hoverLogoutBtn(true)"
     (mouseleave)="hoverLogoutBtn(false)"

@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, delay, forkJoin, map, Observable, of, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
 import { API } from '../shared/api';
-import { Coords, ICountriesResponseItem, ITour, ITourComponent, ITourTypes } from '../models/tours';
+import { Coords, ICountriesResponseItem, ITour, ITourServerResponse, ITourTypes } from '../models/tours';
 import { isDate } from 'date-fns';
 import { MapService } from './map.service';
 import { LoaderService } from './loader.service';
-import { IBuyer, IPostorder } from '../models/user';
+import { IBuyer } from '../models/user';
 import { BasketService } from './basket.service';
+import { IWeatherCurrent, IWeatherHourly, IWeatherResponce } from '../models/map';
+import Map from 'ol/Map';
 
 @Injectable({
   providedIn: 'root'
@@ -37,17 +39,17 @@ getTours(): Observable<ITour[]> {
 this.loaderService.setLoader(true);
 
 const countries = this.http.get<ICountriesResponseItem[]>(API.countries);
-const tours = this.http.get<ITourComponent>(API.tours);
+const tours = this.http.get<ITourServerResponse>(API.tours);
 const testObservable = of(1).pipe(
   delay(4000)
 );
 
 
-return forkJoin<[ICountriesResponseItem[], ITourComponent]>([ countries, tours]).pipe(
+return forkJoin<[ICountriesResponseItem[], ITourServerResponse]>([ countries, tours]).pipe(
   delay(1000),
   withLatestFrom(this.basketService.basketStore$),
   map(([data, basketData])=> {
-
+console.log('daraar', data)
 
       let toursWithCountries = [] as ITour[];
       const toursArr = data[1].tours;
@@ -90,8 +92,15 @@ tour.inBasket = true;
 }
 
 getTourById(id?:string): Observable<ITour> {
+  const tourAPI = API.tour;
   const path = API.tour+'/'+id;
   return this.http.get<ITour>(`${API.tour}/${id}`);
+}
+
+deleteTourById(id:string):Observable<ITour> {
+  const tourAPI = API.tour;
+  const path = API.tour+'/'+id;
+  return this.http.delete<ITour>(`${API.tour}/${id}`);
 }
 
  getNearestTourByLocationId(id:string):Observable<ITour[]>{
@@ -117,31 +126,23 @@ searchTours(tours:ITour[], value: string): ITour[] {
 
 initChangeTourType(val:ITourTypes): void {
   this.tourTypeSubject.next(val);
+
 }
 
 initChangeTourDate(val:Date): void{
  this.tourDateSubject.next(val);
 }
 
-clearDateTour ():any {
-  this.clearSubject.pipe(
-    switchMap(() => {
-      // Если дата очищена, загружаем все туры
-      if (!Date) {
-        return this.getTours();
-      
-    }
-      // Иначе загружаем туры по дате
-      this.tourDateSubject.next(null);
-})
-  );
+clearDateTour(ev: Event): void {
+
+ //this.tourDateSubject.next();
 }
 
-/*clearDateTour() {
+/*
  
-  this.tourDateSubject.next(null);
-  this.clearSubject.next();
-}*/
+  
+
+*/
 
 
 
@@ -153,7 +154,7 @@ map((countrieDataArr) => countrieDataArr[0]),
 
 //send new Obversable
 switchMap((countrieData) => {
-  console.log('countrieData',countrieData)
+  console.log('countrieData',countrieData);
   const coords = {lat: countrieData.latlng[0], lng: countrieData.latlng[1]};
 
   // new Observable

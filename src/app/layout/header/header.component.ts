@@ -68,13 +68,13 @@ this.basketStore$ = this.basketService.basketStore$;
   }
 
 
-logOut():void {
+logOut(): void {
     this.userService.setUser(null);
     this.router.navigate(['/auth']);
   }
 
 
-hoverLogoutBtn(val:boolean): void {
+hoverLogoutBtn(val: boolean): void {
   this.logoutIcon = val ? 'pi pi-sign-out' : 'pi pi-user';
 }
 

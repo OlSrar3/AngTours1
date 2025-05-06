@@ -33,6 +33,7 @@ import { IWeatherCurrent, IWeatherResponce } from '../../models/map';
     HighlightActiveDirective,
     MapComponent,
     DialogModule,
+  
 
 ],
   templateUrl: './tours.component.html',
@@ -46,11 +47,11 @@ export class ToursComponent implements OnInit, OnDestroy {
  subscription: Subscription;
  typeTourFilter:IFilterTypeLogic = {key: 'all'};
  dateTourFilter:Date;
-destroyer = new Subject<boolean>()
+destroyer = new Subject<boolean>();
 showModal = false;
 location: ILocation = null;
-//selectedTour: ITour = null;
-//weatherData: IWeatherResponce=null;
+selectedTour: ITour = null;
+weatherData: any =null;
 
 
   constructor(
@@ -94,10 +95,13 @@ location: ILocation = null;
 
       console.log('****date', date);
    //this.initTourFilterLogic();
-
+     //if (date = null) {
       this.tours = this.toursStore.filter((tour)=>{
+     if (NaN) {
+      return this.tours=this.toursStore;
+     }
 
-        if (isValid (new Date(tour.date))) {
+       else if (isValid (new Date(tour.date))) {
 
           const tourDate = new Date(tour.date).setHours(0, 0, 0, 0);
           console.log('****tourDate', tourDate)
@@ -107,19 +111,13 @@ location: ILocation = null;
         }else {
           return false;
         }
-      });
-    })
+  }
+);}
+      
+  // }
+  )
   
-    /*this.toursService.clearTour$.subscribe((date)=> {
-    // Если даты нет, все туры
-   if (!Date) {
-      return this.toursService.clearDateTour();
-    } else {
 
-    return this.toursService.initChangeTourDate(null);
-    }
-  };*/
-  
   
 
 
@@ -161,22 +159,32 @@ ngOnDestroy(): void {
     }
   }
 
-  getCountryDetail(ev: Event, code:string): void {
+  getCountryDetail(ev: Event, code:string, tour:ITour): void {
     ev.stopPropagation();
     this.toursService.getCountryByCode(code).subscribe((data) => {
       
-        if (Array.isArray(data)) {
-        const countryInfo = data[0];
-        console.log('countryInfo', countryInfo);
-        this.location = {lat: countryInfo.latlng[0], lng: countryInfo.latlng[1]};
-        this.showModal = true;
+        if (data) {
+        const countrieInfo = data.countrieData;
+        console.log('countryInfo', countrieInfo);
+        
+        this.location = {lat: countrieInfo.latlng[0], lng: countrieInfo.latlng[1]};
+        this.selectedTour=tour;
+     
+        this.weatherData = data.weatherData;
+        
+         this.showModal = true;
       }
     });
 
   }
-         // this.selectedTour = tour;
-       // this.weatherData = data[0];
- /* initTourFilterLogic(): void {
+ DeleteTourById(ev: Event): void {
+   this.toursService.deleteTourById(null).subscribe(() => {
+        // Обновляем список туров
+    this.toursStore = [...this.toursStore];
+  })
+}
+         //   this.selectedTour = tour;
+ initTourFilterLogic(): void {
 
     if (this.typeTourFilter) {
       switch (this.typeTourFilter.key) {
@@ -192,13 +200,13 @@ ngOnDestroy(): void {
       break;
         }
       }
-    }*/
+    }
 
-    /*removeTour (ev:Event, tour :ITour): void {
+  removeTour (ev:Event, tour :ITour): void {
       ev.stopPropagation();
       this.toursService.deleteTourById(tour?.id).subscribe()
     }
-*/
+
     setItemToBasket(ev:Event, item: ITour): void {
       ev.stopPropagation();
       this.basketService.setItemToBasket(item);
@@ -207,6 +215,11 @@ ngOnDestroy(): void {
   removeItemFromBasket(ev:Event, item: ITour): void {
     ev.stopPropagation();
     this.basketService.removeItemFromBasket(item);
+  }
+
+  addBasket(ev:Event, item: ITour) {
+    ev.stopPropagation();
+    this.basketService.addBasket();
   }
 
     }

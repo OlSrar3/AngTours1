@@ -8,7 +8,7 @@ export interface IUser {
     email: string;
  }
 
- export const UserStorageKey = 'current_user';
+ export const UserStoragKey = 'current_user';
 
  export interface IBuyer {
     firstName: string,
@@ -19,10 +19,10 @@ export interface IUser {
       citizenship: string,
     
  }
- export interface IPostorder {
+ /*export interface IPostorder {
    userLogin: string,
    tourId: string,
-   personalData: number,
+   personalData: Date,
 
    
-}
+}*/

@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class BasketService {
   private basketStore: ITour[] = [];
+  
   private basketSubject = new BehaviorSubject(this.basketStore);
   basketStore$ = this.basketSubject.asObservable();
 
@@ -25,4 +26,8 @@ removeItemFromBasket(item: ITour): void {
   this.basketSubject.next(this.basketStore);
 }
 
+addBasket() {
+
+this.basketSubject.next(this.basketStore);
+}
 }
